@@ -68,7 +68,7 @@ var currentAccount: MSALAccount?
             self.accessToken = result.accessToken
             print("Access token is \(self.accessToken)")
             call.success([
-            "AccessToken": self.accessToken
+            self.accessToken
             ])
             self.updateCurrentAccount(account: result.account)
             self.getContentWithToken()
@@ -126,10 +126,11 @@ var currentAccount: MSALAccount?
             }
             
             self.accessToken = result.accessToken
-            call.success([
-            "AccessToken": self.accessToken
+              print("Refreshed Access token is \(self.accessToken)")
+           call.success([
+            self.accessToken
             ])
-            print("Refreshed Access token is \(self.accessToken)")
+          
             self.getContentWithToken()
         }
     }

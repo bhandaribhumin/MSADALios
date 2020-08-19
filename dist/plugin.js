@@ -10,50 +10,23 @@ var capacitorPlugin = (function (exports, core) {
             step((generator = generator.apply(thisArg, _arguments || [])).next());
         });
     };
-    class MSALiOSWeb extends core.WebPlugin {
-        constructor() {
-            super({
-                name: 'MSALiOS',
-                platforms: ['web'],
-            });
-        }
-        initMSAL(options) {
+    const { MSALiOS } = core.Plugins;
+    class MsAdal {
+        acquireTokenInteractively() {
             return __awaiter(this, void 0, void 0, function* () {
-                console.log('initMSAL', options);
-                return options;
+                const response = yield MSALiOS.acquireTokenInteractively();
+                return response;
             });
         }
         callGraphAPI() {
             return __awaiter(this, void 0, void 0, function* () {
-                console.log('callGraphAPI');
-                const AccessToken = {
-                    AccessToken: 'test',
-                };
-                return AccessToken;
-            });
-        }
-        acquireTokenInteractively() {
-            return __awaiter(this, void 0, void 0, function* () {
-                const AccessToken = {
-                    AccessToken: 'test',
-                };
-                return AccessToken;
-            });
-        }
-        acquireTokenSilently() {
-            return __awaiter(this, void 0, void 0, function* () {
-                const AccessToken = {
-                    AccessToken: 'test',
-                };
-                return AccessToken;
+                const response = yield MSALiOS.callGraphAPI();
+                return response;
             });
         }
     }
-    const MSALiOS = new MSALiOSWeb();
-    core.registerWebPlugin(MSALiOS);
 
-    exports.MSALiOS = MSALiOS;
-    exports.MSALiOSWeb = MSALiOSWeb;
+    exports.MsAdal = MsAdal;
 
     return exports;
 
