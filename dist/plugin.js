@@ -17,10 +17,35 @@ var capacitorPlugin = (function (exports, core) {
                 platforms: ['web'],
             });
         }
-        echo(options) {
+        initMSAL(options) {
             return __awaiter(this, void 0, void 0, function* () {
-                console.log('ECHO', options);
+                console.log('initMSAL', options);
                 return options;
+            });
+        }
+        callGraphAPI() {
+            return __awaiter(this, void 0, void 0, function* () {
+                console.log('callGraphAPI');
+                const AccessToken = {
+                    AccessToken: 'test',
+                };
+                return AccessToken;
+            });
+        }
+        acquireTokenInteractively() {
+            return __awaiter(this, void 0, void 0, function* () {
+                const AccessToken = {
+                    AccessToken: 'test',
+                };
+                return AccessToken;
+            });
+        }
+        acquireTokenSilently() {
+            return __awaiter(this, void 0, void 0, function* () {
+                const AccessToken = {
+                    AccessToken: 'test',
+                };
+                return AccessToken;
             });
         }
     }

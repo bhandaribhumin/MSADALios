@@ -9,9 +9,31 @@ export class MSALiOSWeb extends WebPlugin implements MSALiOSPlugin {
     });
   }
 
-  async echo(options: { value: string }): Promise<{ value: string }> {
-    console.log('ECHO', options);
+  async initMSAL(options: {
+    authorityURL: string;
+  }): Promise<{ authorityURL: string }> {
+    console.log('initMSAL', options);
     return options;
+  }
+  async callGraphAPI(): Promise<{ AccessToken: string }> {
+    console.log('callGraphAPI');
+    const AccessToken = {
+      AccessToken: 'test',
+    };
+    return AccessToken;
+  }
+  async acquireTokenInteractively(): Promise<{ AccessToken: string }> {
+    const AccessToken = {
+      AccessToken: 'test',
+    };
+    return AccessToken;
+  }
+
+  async acquireTokenSilently(): Promise<{ AccessToken: string }> {
+    const AccessToken = {
+      AccessToken: 'test',
+    };
+    return AccessToken;
   }
 }
 

@@ -5,5 +5,14 @@ declare module '@capacitor/core' {
 }
 
 export interface MSALiOSPlugin {
-  echo(options: { value: string }): Promise<{ value: string }>;
+  initMSAL(options: {
+    authorityURL: string;
+  }): Promise<{ authorityURL: string }>;
+  callGraphAPI(options: {
+    authorityURL: string;
+  }): Promise<{ AccessToken: string }>;
+  acquireTokenInteractively(options: {
+    authorityURL: string;
+  }): Promise<{ AccessToken: string }>;
+  acquireTokenSilently(): Promise<{ AccessToken: string }>;
 }

@@ -2,10 +2,19 @@ import { WebPlugin } from '@capacitor/core';
 import { MSALiOSPlugin } from './definitions';
 export declare class MSALiOSWeb extends WebPlugin implements MSALiOSPlugin {
     constructor();
-    echo(options: {
-        value: string;
+    initMSAL(options: {
+        authorityURL: string;
     }): Promise<{
-        value: string;
+        authorityURL: string;
+    }>;
+    callGraphAPI(): Promise<{
+        AccessToken: string;
+    }>;
+    acquireTokenInteractively(): Promise<{
+        AccessToken: string;
+    }>;
+    acquireTokenSilently(): Promise<{
+        AccessToken: string;
     }>;
 }
 declare const MSALiOS: MSALiOSWeb;
