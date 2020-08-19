@@ -1,6 +1,6 @@
 {
   "name": "msadal-ios",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "this is beta test",
   "main": "dist/plugin.js",
   "module": "dist/esm/index.js",
@@ -56,9 +56,9 @@
   "swiftlint": "@ionic/swiftlint-config",
   "repository": {
     "type": "git",
-    "url": "https://github.com/bhandaribhumin/MSALios-capacitor.git"
+    "url": "https://github.com/bhandaribhumin/MSADALios.git"
   },
   "bugs": {
-    "url": "https://github.com/bhandaribhumin/MSALios-capacitor.git/issues"
+    "url": "https://github.com/bhandaribhumin/MSADALios.git/issues"
   }
 }
