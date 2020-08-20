@@ -1,5 +1,3 @@
-
-  <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-      package="com.rti.adal.MSADALios">
-  </manifest>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.rti.adalios.MSADALios">
+</manifest>
   

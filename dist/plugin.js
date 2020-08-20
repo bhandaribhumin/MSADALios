@@ -11,22 +11,21 @@ var capacitorPlugin = (function (exports, core) {
         });
     };
     const { MSALiOS } = core.Plugins;
-    class MsAdal {
-        acquireTokenInteractively() {
+    class ADAuthentication {
+        initADAL(ClientID, GraphURI, Authority, RedirectUri) {
             return __awaiter(this, void 0, void 0, function* () {
-                const response = yield MSALiOS.acquireTokenInteractively();
-                return response;
-            });
-        }
-        callGraphAPI() {
-            return __awaiter(this, void 0, void 0, function* () {
-                const response = yield MSALiOS.callGraphAPI();
-                return response;
+                const response = yield MSALiOS.initADAL({
+                    ClientID,
+                    GraphURI,
+                    Authority,
+                    RedirectUri,
+                });
+                return response.accessToken;
             });
         }
     }
 
-    exports.MsAdal = MsAdal;
+    exports.ADAuthentication = ADAuthentication;
 
     return exports;
 

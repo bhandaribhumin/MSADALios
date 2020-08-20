@@ -1,43 +1,31 @@
 import { Plugins } from '@capacitor/core';
 const { MSALiOS } = Plugins;
 
-export class MsAdal implements acquireTokenInteractivelyInterface {
-  async acquireTokenInteractively(): Promise<IAuthenticationResult[]> {
-    const response = await MSALiOS.acquireTokenInteractively();
-    return response;
-  }
-  async callGraphAPI(): Promise<IAuthenticationResult[]> {
-    const response = await MSALiOS.callGraphAPI();
-    return response;
+export class ADAuthentication implements acquireTokenInteractivelyInterface {
+  async initADAL(
+    ClientID: string,
+    GraphURI: string,
+    Authority: string,
+    RedirectUri: string,
+  ): Promise<IAuthenticationResult[]> {
+    const response = await MSALiOS.initADAL({
+      ClientID,
+      GraphURI,
+      Authority,
+      RedirectUri,
+    });
+    return response.accessToken;
   }
 }
 
 export interface acquireTokenInteractivelyInterface {
-  acquireTokenInteractively(): Promise<IAuthenticationResult[]>;
-  callGraphAPI(): Promise<IAuthenticationResult[]>;
+  initADAL(
+    ClientID: string,
+    GraphURI: string,
+    Authority: string,
+    RedirectUri: string,
+  ): Promise<IAuthenticationResult[]>;
 }
 export interface IAuthenticationResult {
   accessToken: string;
-  accessTokenType: string;
-  expiresOn: Date;
-  idToken: string;
-  isMultipleResourceRefreshToken?: boolean;
-  status?: string;
-  statusCode?: string;
-  tenantId?: string;
-  userInfo?: IUserInfo;
-}
-/**
- * @description Interface for classes that represent a users info.
- * @interface IUserInfo
- */
-export interface IUserInfo {
-  displayableId: string;
-  userId: string;
-  familyName: string;
-  givenName: string;
-  identityProvider: string;
-  passwordChangeUrl?: string;
-  passwordExpiresOn: Date;
-  uniqueId: string;
 }

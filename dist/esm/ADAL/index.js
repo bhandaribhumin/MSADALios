@@ -9,17 +9,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 import { Plugins } from '@capacitor/core';
 const { MSALiOS } = Plugins;
-export class MsAdal {
-    acquireTokenInteractively() {
+export class ADAuthentication {
+    initADAL(ClientID, GraphURI, Authority, RedirectUri) {
         return __awaiter(this, void 0, void 0, function* () {
-            const response = yield MSALiOS.acquireTokenInteractively();
-            return response;
-        });
-    }
-    callGraphAPI() {
-        return __awaiter(this, void 0, void 0, function* () {
-            const response = yield MSALiOS.callGraphAPI();
-            return response;
+            const response = yield MSALiOS.initADAL({
+                ClientID,
+                GraphURI,
+                Authority,
+                RedirectUri,
+            });
+            return response.accessToken;
         });
     }
 }
