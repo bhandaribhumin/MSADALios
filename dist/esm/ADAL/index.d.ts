@@ -1,12 +1,14 @@
 export declare class ADAuthentication implements acquireTokenInteractivelyInterface {
     initADAL(ClientID: String, GraphURI: String, Authority: String, RedirectUri: String): Promise<IAuthenticationResult[]>;
     aquireTokenAsyncSilent(ClientID: String, GraphURI: String, Authority: String, RedirectUri: String): Promise<IAuthenticationResult[]>;
-    currentAccount(ClientID: String, GraphURI: String, Authority: String, RedirectUri: String): Promise<IAuthenticationResult[]>;
+    currentAccount(ClientID: String, GraphURI: String, Authority: String, RedirectUri: String): Promise<any[]>;
+    signOut(ClientID: String, GraphURI: String, Authority: String, RedirectUri: String): Promise<any[]>;
 }
 export interface acquireTokenInteractivelyInterface {
     initADAL(ClientID: string, GraphURI: string, Authority: string, RedirectUri: string): Promise<IAuthenticationResult[]>;
     aquireTokenAsyncSilent(ClientID: string, GraphURI: string, Authority: string, RedirectUri: string): Promise<IAuthenticationResult[]>;
-    currentAccount(ClientID: string, GraphURI: string, Authority: string, RedirectUri: string): Promise<IAuthenticationResult[]>;
+    currentAccount(ClientID: string, GraphURI: string, Authority: string, RedirectUri: string): Promise<any[]>;
+    signOut(ClientID: string, GraphURI: string, Authority: string, RedirectUri: string): Promise<any[]>;
 }
 export interface IAuthenticationResult {
     accessToken: string;

@@ -7,4 +7,6 @@ CAP_PLUGIN(MSALiOS, "MSALiOS",
             CAP_PLUGIN_METHOD(initADAL, CAPPluginReturnPromise);
             CAP_PLUGIN_METHOD(aquireTokenAsyncSilent, CAPPluginReturnPromise);
             CAP_PLUGIN_METHOD(currentAccount, CAPPluginReturnPromise);
+            CAP_PLUGIN_METHOD(signOut, CAPPluginReturnPromise);
+            
 )

@@ -36,14 +36,28 @@ export class ADAuthentication implements acquireTokenInteractivelyInterface {
     GraphURI: String,
     Authority: String,
     RedirectUri: String,
-  ): Promise<IAuthenticationResult[]> {
+  ): Promise<any[]> {
     const response = await MSALiOS.currentAccount({
       ClientID,
       GraphURI,
       Authority,
       RedirectUri,
     });
-    return response.accessToken;
+    return response.cachedToken;
+  }
+  async signOut(
+    ClientID: String,
+    GraphURI: String,
+    Authority: String,
+    RedirectUri: String,
+  ): Promise<any[]> {
+    const response = await MSALiOS.signOut({
+      ClientID,
+      GraphURI,
+      Authority,
+      RedirectUri,
+    });
+    return response.cachedToken;
   }
 }
 
@@ -65,7 +79,13 @@ export interface acquireTokenInteractivelyInterface {
     GraphURI: string,
     Authority: string,
     RedirectUri: string,
-  ): Promise<IAuthenticationResult[]>;
+  ): Promise<any[]>;
+  signOut(
+    ClientID: string,
+    GraphURI: string,
+    Authority: string,
+    RedirectUri: string,
+  ): Promise<any[]>;
 }
 export interface IAuthenticationResult {
   accessToken: string;

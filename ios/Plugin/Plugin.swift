@@ -96,4 +96,35 @@ public class MSALiOS: CAPPlugin {
             // Fallback on earlier versions
         }
     }
+
+     @objc func signOut(_ call: CAPPluginCall) {
+        
+          guard let KClientID = call.getString("ClientID") else {
+            call.reject("ClientID not found")
+            return
+        }
+        guard let kGraphURI = call.getString("GraphURI") else {
+            call.reject("GraphURI not found")
+            return
+        }
+
+     guard let kAuthority = call.getString("Authority") else {
+            call.reject("Authority not found")
+            return
+        }
+
+        guard var kRedirectUri = call.getString("RedirectUri") else {
+            call.reject("RedirectUri not found")
+            return
+        }
+        if #available(iOS 13.0, *) {
+            DispatchQueue.main.async {
+                ADAuthentication(call: call, KClientID: KClientID,kGraphURI: kGraphURI,kAuthority: kAuthority,kRedirectUri: kRedirectUri).signOut()
+            }
+           
+        } else {
+            // Fallback on earlier versions
+        }
+    }
+    
 }

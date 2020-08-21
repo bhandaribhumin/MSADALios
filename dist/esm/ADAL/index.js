@@ -40,7 +40,18 @@ export class ADAuthentication {
                 Authority,
                 RedirectUri,
             });
-            return response.accessToken;
+            return response.cachedToken;
+        });
+    }
+    signOut(ClientID, GraphURI, Authority, RedirectUri) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const response = yield MSALiOS.signOut({
+                ClientID,
+                GraphURI,
+                Authority,
+                RedirectUri,
+            });
+            return response.cachedToken;
         });
     }
 }

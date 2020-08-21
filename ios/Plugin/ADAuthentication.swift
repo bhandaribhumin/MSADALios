@@ -89,10 +89,25 @@ public class ADAuthentication {
         if !(cachedTokens.isEmpty) {
             for (_, cachedToken) in cachedTokens.enumerated() {
                 if cachedToken.accessToken != nil {
-                  self.call.success(["accessToken": cachedToken.accessToken])
+                  self.call.success(["cachedToken": cachedToken])
                 }
             }
         }
+    }
+    public func signOut() {
+        
+        /**
+         Removes all tokens from the cache for this application for the current account in use
+         - account:    The account user ID to remove from the cache
+         */
+        guard let account = currentAccount()?.userInformation?.userId else {
+             CAPLog.print("Didn't find a logged in account in the cache.")
+             self.call.reject("Didn't find a logged in account in the cache.")
+           
+            return
+        }
+        ADKeychainTokenCache.defaultKeychain().removeAll(forUserId: account, clientId: kClientID, error: nil)
+        self.call.success(["success": true])
     }
    
 }
