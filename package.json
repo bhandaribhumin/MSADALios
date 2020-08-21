@@ -1,6 +1,6 @@
 {
   "name": "msadal-ios",
-  "version": "2.1.3",
+  "version": "2.1.7",
   "description": "this is beta test",
   "main": "dist/plugin.js",
   "module": "dist/esm/index.js",

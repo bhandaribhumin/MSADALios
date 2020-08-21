@@ -4,9 +4,9 @@ import ADAL
 
 @available(iOS 13.0, *)
 public class ADAuthentication {
-    var kClientID = ""
-    var kGraphURI = ""
-    var kAuthority = ""
+    var kClientID: String;
+    var kGraphURI: String;
+    var kAuthority: String;
     var kRedirectUri = URL(string: "")
     var applicationContext : ADAuthenticationContext?
 
@@ -14,13 +14,15 @@ public class ADAuthentication {
     
     var detectedAlready = false
     
-    public init(call: CAPPluginCall,  KClientID:String,kGraphURI: String,kAuthority: String,kRedirectUri: String) {
+    public init(call: CAPPluginCall,  KClientID: String,kGraphURI: String,kAuthority: String,kRedirectUri: String) {
         self.call = call
         self.kClientID = KClientID
         self.kGraphURI = kGraphURI
         self.kAuthority = kAuthority
-         self.kRedirectUri = URL(string: kRedirectUri)
-           CAPLog.print("Unexpected kRedirectUri: \(self.kRedirectUri))");
+         CAPLog.print("kClientID fn: \(kClientID)");
+         CAPLog.print("kRedirectUri fn: \(kRedirectUri)");
+        self.kRedirectUri = URL(string: kRedirectUri)
+        CAPLog.print("kRedirectUri: \(self.kRedirectUri)");
          self.applicationContext = ADAuthenticationContext(authority: kAuthority, error: nil)
         self.applicationContext?.credentialsType = AD_CREDENTIALS_AUTO
     }
@@ -29,13 +31,13 @@ public class ADAuthentication {
         // fail out if call is already used up
          guard let applicationContext = self.applicationContext else { return }
         guard let kRedirectUri = kRedirectUri else { return }
-        applicationContext.acquireToken(withResource: kGraphURI, clientId: kClientID, redirectUri: kRedirectUri!){ (result) in
+        applicationContext.acquireToken(withResource: kGraphURI, clientId: kClientID, redirectUri: kRedirectUri){ (result) in
             if (result.status != AD_SUCCEEDED) {
                 if let error = result.error {
                     if error.domain == ADAuthenticationErrorDomain,
                         error.code == ADErrorCode.ERROR_UNEXPECTED.rawValue {
-                        CAPLog.print("Unexpected internal error occured: \(error.description))")
-                        self.call.reject("Unexpected internal error occured: \(error.description))")
+                        CAPLog.print("Unexpected internal error occured: \(error.description)")
+                        self.call.reject("Unexpected internal error occured: \(error.description)")
                         return
                     } else {
                         CAPLog.print(error.description)
@@ -52,26 +54,19 @@ public class ADAuthentication {
         }
     }
 
-    func acquireTokenSilently() {
+    public func acquireTokenSilently() {
         
         guard let applicationContext = self.applicationContext else { return }
         guard let kRedirectUri = kRedirectUri else { return }
 
-        applicationContext.acquireTokenSilent(withResource: kGraphURI, clientId: kClientID, redirectUri: kRedirectUri!) { (result) in
+        applicationContext.acquireTokenSilent(withResource: kGraphURI, clientId: kClientID, redirectUri: kRedirectUri) { (result) in
             if (result.status != AD_SUCCEEDED) {
                 if let error = result.error {
                     if error.domain == ADAuthenticationErrorDomain,
                         error.code == ADErrorCode.ERROR_SERVER_USER_INPUT_NEEDED.rawValue {
                         
                         DispatchQueue.main.async {
-                            self.acquireToken() { (success) -> Void in
-                                if success {
-                                   self.call.success(true)
-                                } else {
-                                CAPLog.print("After determining we needed user input, could not acquire token: \(error.description)")
-                                 self.call.reject("After determining we needed user input, could not acquire token: \(error.description)")
-                                }
-                            }
+                            self.initADAL()
                         }
                     } else {
                         CAPLog.print("Could not acquire token silently: \(error.description)")
@@ -85,7 +80,7 @@ public class ADAuthentication {
             }
         }
     }
-     func currentAccount() {
+    public func currentAccount() {
         guard let cachedTokens = ADKeychainTokenCache.defaultKeychain().allItems(nil) else {
              CAPLog.print("Didn't find a default cache. This is very unusual.")
             self.call.reject("Didn't find a default cache. This is very unusual.")
@@ -94,8 +89,7 @@ public class ADAuthentication {
         if !(cachedTokens.isEmpty) {
             for (_, cachedToken) in cachedTokens.enumerated() {
                 if cachedToken.accessToken != nil {
-                    self.call.success(["cachedToken": cachedToken])
-                    return cachedToken
+                  self.call.success(["accessToken": cachedToken.accessToken])
                 }
             }
         }

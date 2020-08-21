@@ -23,6 +23,28 @@ var capacitorPlugin = (function (exports, core) {
                 return response.accessToken;
             });
         }
+        aquireTokenAsyncSilent(ClientID, GraphURI, Authority, RedirectUri) {
+            return __awaiter(this, void 0, void 0, function* () {
+                const response = yield MSALiOS.aquireTokenAsyncSilent({
+                    ClientID,
+                    GraphURI,
+                    Authority,
+                    RedirectUri,
+                });
+                return response.accessToken;
+            });
+        }
+        currentAccount(ClientID, GraphURI, Authority, RedirectUri) {
+            return __awaiter(this, void 0, void 0, function* () {
+                const response = yield MSALiOS.currentAccount({
+                    ClientID,
+                    GraphURI,
+                    Authority,
+                    RedirectUri,
+                });
+                return response.accessToken;
+            });
+        }
     }
 
     exports.ADAuthentication = ADAuthentication;
